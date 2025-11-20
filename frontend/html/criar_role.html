@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Rolê - Checkpoint</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/criar_role.css">
+</head>
+<body>
+
+    <header class="barra-superior">
+        <div class="container-header">
+            <a href="index.html" style="text-decoration: none; color: white;">
+                <div class="logo">CHECKPOINT</div>
+            </a>
+            
+            <div class="area-usuario">
+                <div class="icone-perfil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="40px" height="40px">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+                <div class="texto-usuario">
+                    <span class="ola-pequeno">Olá</span>
+                    <span class="nome-grande" id="nome-usuario">Usuario</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-criar-role">
+        <div class="container-formulario">
+            <h1 class="titulo-criar">Criar Rolê</h1>
+
+            <div class="form-grid">
+                <div class="coluna">
+                    <label>Quanto planeja gastar com esse role?</label>
+                    <input type="text" placeholder="R$ 0,00" class="input-padrao">
+
+                    <label>Quantos amigos vão?</label>
+                    <input type="number" class="input-padrao">
+
+                    <label>Local de destino</label>
+                    <input type="text" placeholder="Exemplo: pizzaria bom gosto..." class="input-padrao">
+                </div>
+
+                <div class="coluna">
+                    <label>Nome do evento:</label>
+                    <input type="text" placeholder="Exemplo: cinema dos amigos" class="input-padrao">
+
+                    <label>Qual dia que vai ser:</label>
+                    <input type="date" class="input-padrao input-data">
+                    
+                    <div class="area-desenho">
+                        <img src="fantasminhas.png" alt="Amigos felizes " class="img-fantasmas" > 
+                    </div>
+                </div>
+            </div>
+
+            <div class="area-botao">
+                <a href="menu_inicial.html">
+                <button class="btn-finalizar">Finalizar</button>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
