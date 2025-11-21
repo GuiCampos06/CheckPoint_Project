@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkpoint</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/menu_inicial.css">
+</head>
+<body>
+
+    <header class="barra-superior">
+        <div class="container-header">
+            <div class="logo">CHECKPOINT</div>
+            
+            <div class="area-usuario" onclick="alternarMenu(event)">
+                
+                <div class="icone-perfil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="40px" height="40px">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+
+                <div class="texto-usuario">
+                    <span class="ola-pequeno">Olá</span>
+                    <span class="nome-grande" id="nome-usuario">Usuario</span>
+                </div>
+                
+                <div class="menu-suspenso" id="menuUsuario">
+                    <a href="#">Home</a>
+                    <a href="#">Perfil</a>
+                    <a href="#">Rolês</a>
+                    <a href="#">Gastos</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="secao-boas-vindas">
+        <div class="conteudo-banner">
+            <h1>SEJA BEM VINDO PARTIU MARCAR UM ROLÊ <br> COM A GALERA??</h1>
+            <a href="criar_role.html">
+                <button class="botao-criar-role">CRIAR ROLÊ</button>
+            </a>
+        </div>
+    </section>
+
+    <main class="conteudo-principal">
+        <div class="container-cards">
+            <div class="card-informativo">
+                <h2>Seu saldo disponivel:</h2>
+                <p class="valor-destaque" id="textoSaldo">R$ 0,00</p>
+                <button class="botao-card" onclick="simularGasto(event)">Atualizar saldo</button>
+            </div>
+
+            <div class="card-informativo">
+                <h2>Rolês marcados:</h2>
+                <p class="valor-destaque">2</p>
+                <button class="botao-card">Inspecionar</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="rodape">
+        <img id="imagemSemaforo" src="?" alt="Status dos Gastos" class="imagem-rodape">
+    </footer>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
