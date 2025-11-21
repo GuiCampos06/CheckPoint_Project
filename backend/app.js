@@ -3,10 +3,6 @@ const http = require("http")
 const app = require("./conexao/server")
 
 
-
-
-
-
 const port = app.get('port') || 4000
 
 try {
