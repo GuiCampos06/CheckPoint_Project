@@ -1,0 +1,16 @@
+{
+  "name": "checkpoint_project",
+  "version": "1.0.0",
+  "description": "Trabalho legal da faculdade de DSM - FATEC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Cauã Martins, Guilherme Campos, Gabriel Ferreira e Rodrigo Avelar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.15.3"
+  }
+}
