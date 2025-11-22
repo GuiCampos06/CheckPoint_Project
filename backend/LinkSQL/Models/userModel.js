@@ -1,4 +1,5 @@
 const db = require("../../conexao/conexao"); // Importa sua conexão
+const bcrypt = require("bcrypt");//importa o bcrypt para criptografia
 
 const queryPromise = (sql, values) => {
     return new Promise((resolve, reject) => {
@@ -17,15 +18,17 @@ const UserModel = {
                 return { sucesso: false, mensagem: "A senha deve ter pelo menos 6 caracteres." };
             }
 
+            const senhaCriptografada = await bcrypt.hash(dados.Senha, 10);
+
             const sql = `
                 INSERT INTO users 
-                (Nome, Nick, Senha, Nascimento, Cidade, Personalidade, Valor, Disponibilidade) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                (Nick, senha, email) 
+                VALUES (?, ?, ?)
             `;
             
             const values = [
-                dados.Nome, dados.Nick, dados.Senha, dados.Nascimento, 
-                dados.Cidade, dados.Personalidade, dados.Valor, dados.Disponibilidade
+                dados.Nick, senhaCriptografada, dados.email
+                
             ];
 
             const resultado = await queryPromise(sql, values);
@@ -45,7 +48,100 @@ const UserModel = {
         const sql = "SELECT * FROM users WHERE Nick = ?";
         const resultado = await queryPromise(sql, [nick]);
         return resultado[0]; // Retorna o primeiro (e único) usuário
+    },
+
+    validarLogin: async (u_nick, u_senha) => {
+
+    const sql = "SELECT * FROM users WHERE Nick = ?";
+
+    try {
+        const result = await queryPromise(sql, [u_nick]);
+        
+        if (result.length === 0) {
+            return { 
+                sucesso: false,
+                mensagem: "Usuário incorreto!",
+            };
+        } 
+        const usuario = result[0];
+
+        const senhaOk = await bcrypt.compare(u_senha, usuario.senha);
+        if (!senhaOk){
+            return {
+                sucesso: false, 
+                mensagem: "Senha incorretos." 
+            };
+        }
+        return {
+                sucesso: true,
+                mensagem: "Login efetuado com sucesso!",
+                usuario: usuario
+            };
+
+    } catch (erro) {
+        console.error("Erro no banco:", erro);
+        return {
+            sucesso: false,
+            mensagem: "Erro interno ao consultar o banco de dados."
+        };
     }
-};
+    },
+    recuperar: async (u_nick, u_email) => {
+
+    const sql1 = "SELECT * FROM users WHERE Nick = ? AND email = ?";
+    const sql2 = "UPDATE users SET codigo = ? WHERE Nick = ?";
+
+    try {
+        const result = await queryPromise(sql1, [u_nick, u_email]);
+        if (result.length === 0) {
+            return { 
+                sucesso: false,
+                mensagem: "Usuário ou email incorreto!",
+            };
+        } 
+        const codigo = Math.floor(100000 + Math.random() * 900000); 
+
+        await queryPromise(sql2, [codigo, u_nick]);
+        return {
+            sucesso: true,
+            mensagem: "Código gerado.",
+            codigo
+        };
+    }catch (erro) {
+        console.error("Erro no banco:", erro);
+        return {
+            sucesso: false,
+            mensagem: "Erro interno ao consultar o banco de dados."
+        };
+    }
+
+
+    },
+    verificar: async (codigo) =>{
+        
+        const sql = "SELECT * FROM users WHERE codigo = ?"
+
+        try {
+            const result = await queryPromise(sql, [codigo]);
+            if (result.length === 0) {
+            return { 
+                sucesso: false,
+                mensagem: "codigo incorreto!",
+            };
+            
+        } return{
+                sucesso: true,
+                mensagem: "Código Correto.",
+            }
+            
+        }catch (erro) {
+        console.error("Erro no banco:", erro);
+        return {
+            sucesso: false,
+            mensagem: "Erro interno ao consultar o banco de dados."
+        };
+    }
+    }
+}
 
 module.exports = UserModel;
