@@ -1,0 +1,129 @@
+/* --- ESTILOS GERAIS--- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif; 
+}
+
+body {
+    background-color: #1B1818;
+    color: white;
+    min-height: 100vh;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1; 
+}
+
+body.saindo {
+    opacity: 0; 
+}
+
+/* --- HEADER --- */
+.barra-superior {
+    background-color: #110833; 
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.container-header {
+    width: 100%;
+    max-width: 1340px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Link do Logo  */
+.container-header a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Área do Usuário */
+.area-usuario {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    position: relative;
+    padding: 10px;
+}
+
+.icone-perfil svg {
+    display: block;
+    border-radius: 50%;
+}
+
+.texto-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: white;
+}
+
+.ola-pequeno { font-size: 0.9rem; font-weight: normal; }
+.nome-grande { font-size: 1.1rem; font-weight: bold; margin-top: -2px; }
+
+/* Menu Suspenso */
+.menu-suspenso {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #110833;
+    width: 220px;
+    padding: 20px 0;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: -5px 5px 15px rgba(0,0,0,0.5);
+}
+
+.menu-suspenso.mostrar { display: flex; }
+
+.menu-suspenso a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding-left: 40px;
+}
+
+.menu-suspenso a:hover { color: #aaa; }
+
+/* Retroceder */
+.lado-esquerdo {
+    display: flex;
+    align-items: center;
+    gap: 15px; /
+}
+
+.link-logo {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-voltar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 50%; 
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.btn-voltar:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(-3px); 
+}
