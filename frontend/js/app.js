@@ -8,42 +8,33 @@ function alternarMenu(event) {
 }
 
 function atualizarSemaforo(valor) {
-    // 1. Pega as luzes
     const luzVermelha = document.getElementById("luz-vermelha");
     const luzAmarela = document.getElementById("luz-amarela");
     const luzVerde = document.getElementById("luz-verde");
-    
-    // 2. Pega o elemento de texto
     const textoMsg = document.getElementById("texto-status");
-
-    // 3. Reseta as luzes (apaga tudo)
     luzVermelha.classList.remove("aceso");
     luzAmarela.classList.remove("aceso");
     luzVerde.classList.remove("aceso");
 
-    // 4. Lógica Principal (Luz + Texto + Cor do Texto)
     if (valor < 80) {
-        // VERDE
+     
         luzVerde.classList.add("aceso");
         textoMsg.innerText = "Tudo tranquilo! Gastos baixos.";
-        textoMsg.className = "msg-verde"; // Troca a cor para verde
+        textoMsg.className = "msg-verde"; 
 
     } else if (valor >= 80 && valor < 100) {
-        // AMARELO
+        
         luzAmarela.classList.add("aceso");
         textoMsg.innerText = "Atenção! Você está chegando no limite.";
-        textoMsg.className = "msg-amarela"; // Troca a cor para amarelo
+        textoMsg.className = "msg-amarela"; 
 
     } else {
-        // VERMELHO
+        
         luzVermelha.classList.add("aceso");
         textoMsg.innerText = "Cuidado! Orçamento estourado!";
-        textoMsg.className = "msg-vermelha"; // Troca a cor para vermelho
+        textoMsg.className = "msg-vermelha"; 
     }
 }
-
-
-
 
 window.onclick = function(event) {
     var menu = document.getElementById("menuUsuario");
@@ -57,7 +48,6 @@ window.onclick = function(event) {
 }
 
 
-var porcentagemGasta = 50;
 
 function simularGasto(event) {
     
@@ -80,16 +70,11 @@ function simularGasto(event) {
 function formatarMoeda(elemento) {
     
     let valor = elemento.value;
-    
     valor = valor.replace(/\D/g, "");
-    
     valor = (valor / 100).toFixed(2) + "";
-   
     valor = valor.replace(".", ",");
-    
     valor = valor.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
     valor = valor.replace(/(\d)(\d{3}),/g, "$1.$2,");
-
     elemento.value = "R$ " + valor;
     
     if(valor == "NaN" || valor == "") {
@@ -124,7 +109,6 @@ function voltarSuave(event, linkDestino) {
     }, 400);
 }
 
-
 function abrirModalSaldo(event) {
     if(event) event.preventDefault();
     const modal = document.getElementById("modalSaldo");
@@ -148,7 +132,6 @@ function salvarNovoSaldo() {
     textoSaldoPrincipal.innerText = inputValor;
     fecharModalSaldo();
 }
-
 
 function formatarMoeda(elemento) {
     let valor = elemento.value;
