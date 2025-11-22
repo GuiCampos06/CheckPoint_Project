@@ -1,20 +1,26 @@
-/* --- ESTILOS GERAIS (RESET E FUNDO) --- */
+/* --- ESTILOS GERAIS--- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Times New Roman', Times, serif; /* Fonte padrão do site */
+    font-family: 'Times New Roman', Times, serif; 
 }
 
 body {
-    background-color: #1B1818; /* Fundo preto padrão */
+    background-color: #1B1818;
     color: white;
-    min-height: 100vh; /* Garante que a tela ocupe 100% da altura */
+    min-height: 100vh;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1; 
 }
 
-/* --- BARRA SUPERIOR (HEADER) - Padrão para todas as páginas --- */
+body.saindo {
+    opacity: 0; 
+}
+
+/* --- HEADER --- */
 .barra-superior {
-    background-color: #110833; /* Roxo escuro */
+    background-color: #110833; 
     height: 80px;
     display: flex;
     justify-content: center;
@@ -33,7 +39,7 @@ body {
     padding: 0 20px;
 }
 
-/* Link do Logo (para não ficar azul e sublinhado) */
+/* Link do Logo  */
 .container-header a {
     text-decoration: none;
     color: white;
@@ -94,3 +100,30 @@ body {
 }
 
 .menu-suspenso a:hover { color: #aaa; }
+
+/* Retroceder */
+.lado-esquerdo {
+    display: flex;
+    align-items: center;
+    gap: 15px; /
+}
+
+.link-logo {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-voltar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 50%; 
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.btn-voltar:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(-3px); 
+}

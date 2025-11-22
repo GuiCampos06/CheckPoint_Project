@@ -48,11 +48,11 @@
     <main class="conteudo-principal">
         <div class="container-cards">
             <div class="card-informativo">
-                <h2>Seu saldo disponivel:</h2>
-                <p class="valor-destaque" id="textoSaldo">R$ 0,00</p>
-                <button class="botao-card" onclick="simularGasto(event)">Atualizar saldo</button>
+                <h2>Seu saldo disponível:</h2>
+                <p class="valor-destaque" id="textoSaldo">R$ 0,00</p> 
+                
+                <button class="botao-card" onclick="abrirModalSaldo(event)">Atualizar saldo</button>
             </div>
-
             <div class="card-informativo">
                 <h2>Rolês marcados:</h2>
                 <p class="valor-destaque">2</p>
@@ -61,8 +61,37 @@
         </div>
     </main>
 
+    <div id="modalSaldo" class="modal-fundo">
+        <div class="modal-caixa">
+            <h3>Digite um novo saldo limite:</h3>
+            <input type="text" id="input-novo-saldo" class="input-saldo-modal" placeholder="R$ 0,00" oninput="formatarMoeda(this)">
+            <div class="botoes-modal">
+                <button class="btn-voltar-modal" onclick="fecharModalSaldo()">Cancelar</button>
+                
+                <button class="btn-continuar" onclick="salvarNovoSaldo()">Continuar</button>
+            </div>
+        </div>
+    </div>
+    
+
     <footer class="rodape">
-        <img id="imagemSemaforo" src="?" alt="Status dos Gastos" class="imagem-rodape">
+        <div class="container-rodape-interno">
+            
+            <div class="lado-personagem">
+                <img src="../imagens/logo.png" alt="Personagem" class="img-personagem">
+            </div>
+
+            <div class="semaforo-css">
+                <div id="luz-vermelha" class="luz vermelha"></div>
+                <div id="luz-amarela" class="luz amarela"></div>
+                <div id="luz-verde" class="luz verde aceso"></div>
+            </div>
+
+            <div class="lado-mensagem">
+                <p id="texto-status" class="msg-verde">Tudo tranquilo! Gastos baixos.</p>
+            </div>
+
+        </div>
     </footer>
 
     <script src="../js/app.js"></script>
