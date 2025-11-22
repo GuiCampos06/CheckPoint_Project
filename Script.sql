@@ -7,18 +7,20 @@ CREATE DATABASE IF NOT EXISTS Checkpoint;
 	-- ==============================
 	CREATE TABLE users (
 		pk_id INT AUTO_INCREMENT PRIMARY KEY,
-		Nome VARCHAR(100) NOT NULL,
+		Nome VARCHAR(100) DEFAULT NULL,
 		Nick VARCHAR(15) NOT NULL UNIQUE,
-		Senha VARCHAR(255) NOT NULL,
-		Nascimento DATE CHECK (Nascimento >= '1900-01-01'),
-		Cidade VARCHAR(100),
-		Gostos TEXT,
-		Personalidade ENUM('introvertido', 'extrovertido', 'depende da companhia') NOT NULL,
-		Valor DECIMAL(10, 2) DEFAULT 0 CHECK (Valor >= 0),
-		Disponibilidade TINYINT CHECK (Disponibilidade BETWEEN 0 AND 31),
-		Preferencia_dia ENUM('domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'),
-		Preferencia_Horario TIME,
+        email VARCHAR(100) NOT NULL UNIQUE,	
+		senha VARCHAR(255) NOT NULL,
+		Nascimento DATE CHECK (Nascimento >= '1900-01-01') DEFAULT NULL,
+		Cidade VARCHAR(100) DEFAULT NULL,
+		Gostos TEXT DEFAULT NULL,
+		Personalidade ENUM('introvertido', 'extrovertido', 'depende da companhia') DEFAULT NULL,
+		Valor DECIMAL(10, 2) DEFAULT 0 CHECK (Valor >= 0) DEFAULT NULL,
+		Disponibilidade TINYINT CHECK (Disponibilidade BETWEEN 0 AND 31) DEFAULT NULL,
+		Preferencia_dia ENUM('domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado') DEFAULT NULL,
+		Preferencia_Horario TIME DEFAULT NULL,
 		criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        codigo VARCHAR(10) DEFAULT NULL,
 		atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
