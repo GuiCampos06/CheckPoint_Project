@@ -1,0 +1,129 @@
+/*  LAYOUT DA PÁGINA  */
+.main-meus-roles {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    /* Opcional: Adicionar um gradiente sutil no fundo se não tiver no global */
+}
+
+.titulo-pagina {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: normal;
+    text-align: center;
+    font-family: 'Times New Roman', serif;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5); /* Sombra para destacar o texto */
+}
+
+/* Container Roxo Escuro  */
+.container-lista-roles {
+    background-color: #110b29; 
+    width: 100%;
+    max-width: 1100px;
+    padding: 50px;
+    border-radius: 12px; /* Arredondamento mais suave */
+    min-height: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6); /* Sombra mais profunda */
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Borda sutil */
+}
+
+/* ESTILO DO CARD */
+.card-role {
+    margin-bottom: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    background-color: transparent; 
+    height: auto; 
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.card-role:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* Cabeçalho do Card (Mudado de Branco para Roxo Profundo) */
+.card-header {
+    background-color: #1F1147; /* Roxo escuro elegante */
+    color: #ffffff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', serif;
+    justify-content: space-between; 
+    position: relative; 
+    z-index: 2;
+    transition: background-color 0.3s;
+}
+
+.card-header:hover {
+    background-color: #2a1b6e; /* Clareia levemente ao passar o mouse */
+}
+
+/* Seta */
+.seta-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    font-family: Arial, sans-serif; 
+    color: #a89eff; /* Cor lilás para a seta */
+}
+
+/* Corpo do Card (Mudado de Azul Puro para Roxo Médio) */
+.card-body {
+    background-color: #2a1b6e; /* Substituiu o #0000FF */
+    color: #e0e0e0; /* Branco levemente cinza para leitura confortável */
+    padding: 25px;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    display: none; 
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Linha divisória sutil */
+}
+
+/* Animação e Estado Aberto */
+.card-role.aberto .card-body {
+    display: block;
+    animation: abrirSuave 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animação mais fluida */
+}
+
+.card-role.aberto .seta-icon {
+    transform: rotate(180deg);
+    color: #fff;
+}
+
+/* Quando aberto, o header fica um pouco mais claro para destacar */
+.card-role.aberto .card-header {
+    background-color: #33219A;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+@keyframes abrirSuave {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Grid de Eventos */
+#lista-eventos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #lista-eventos {
+        grid-template-columns: 1fr;
+    }
+    
+    .container-lista-roles {
+        padding: 25px;
+    }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Rolês</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/meus_roles.css">
+</head>
+<body>
+
+    <header class="barra-superior">
+        <div class="container-header">
+            <div class="lado-esquerdo">
+                <a href="menu_inicial.html" class="btn-voltar" onclick="voltarSuave(event, this.href)" title="Voltar ao Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 0 24 24" width="30px" fill="white">
+                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z"/>
+                    </svg>
+                </a>
+
+                <a href="menu_inicial.html" class="link-logo" onclick="voltarSuave(event, this.href)">
+                    <div class="logo">CHECKPOINT</div>
+                </a>
+            </div>
+
+            <div class="area-usuario" onclick="alternarMenu(event)">
+                
+                <div class="icone-perfil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="40px" height="40px">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+
+                <div class="texto-usuario">
+                    <span class="ola-pequeno">Olá</span>
+                    <span class="nome-grande" id="nome-usuario">Usuario</span>
+                </div>
+                
+                <div class="menu-suspenso" id="menuUsuario">
+                    <a href="menu_inicial.html">Home</a>
+                    <a href="meu_perfil.html">Perfil</a>
+                    <a href="meus_roles.html">Rolês</a>
+                    <a href="central.html">Gastos</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-meus-roles">
+        <h1 class="titulo-pagina">Meus Rolês</h1>
+
+        <div class="container-lista-roles">
+            <!-- AQUI O JAVASCRIPT VAI INJETAR OS CARDS -->
+            <div id="lista-eventos">
+                <p style="color:white; text-align:center;">Carregando...</p>
+            </div>
+        </div>
+
+        <!-- Botão Flutuante para Criar Novo (Opcional) -->
+        <a href="criar_role.html" style="margin-top: 30px;">
+            <button style="padding:15px 30px; background:#330693; color:white; border:none; border-radius:5px; cursor:pointer; font-size:1.1rem;">
+                + Novo Rolê
+            </button>
+        </a>
+
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/roles.js"></script> <!-- Crie este arquivo -->
+</body>
+</html>

@@ -1,0 +1,288 @@
+/* --- CONTEÚDO PRINCIPAL --- */
+.conteudo-principal {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    background: radial-gradient(circle at top, #12083a 10%, #0b0b0b 90%);
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 850px;
+}
+
+/* --- BOX EDITAR PERFIL --- */
+.box-editar-perfil {
+    background-color: #171717;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(17, 8, 51, 0.5);
+    overflow: hidden;
+    border: 1px solid rgba(136, 18, 255, 0.2);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.5s ease;
+}
+
+.cabecalho-box {
+    background: linear-gradient(135deg, #1e0a52 0%, #32117f 100%);
+    padding: 28px 35px;
+    border-bottom: 1px solid rgba(110, 40, 255, 0.3);
+}
+
+.cabecalho-box h2 {
+    color: #ffffff;
+    font-size: 1.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
+}
+
+/* --- Conteúdo Interno --- */
+.conteudo-box {
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* FOTO PERFIL */
+.area-foto-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 35px;
+    padding-bottom: 30px;
+    width: 100%;
+    border-bottom: 1px solid #333;
+}
+
+/* Wrapper para alinhar tudo */
+.foto-perfil-wrapper {
+    position: relative;
+    width: 130px;
+    height: 130px;
+}
+
+/* Ícone padrão centralizado */
+.icone-perfil-default {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* Foto circular */
+.foto-perfil {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid #5318d8;
+    background-color: #222;
+    background-size: cover !important;
+    background-position: center !important;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(83, 24, 216, 0.4);
+    transition: 0.25s ease;
+}
+
+.foto-perfil:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 15px rgba(136, 18, 255, 0.6);
+}
+
+/* Container dos botões */
+.botoes-foto {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+/* Botão alterar foto */
+.btn-alterar-foto {
+    background-color: #2b2b2b;
+    color: #cfcfcf;
+    border: 1px solid #5a29d6;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.25s ease;
+}
+
+.btn-alterar-foto:hover {
+    background-color: #5a29d6;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(136, 18, 255, 0.5);
+}
+
+/* Botão remover foto */
+.btn-remover-foto {
+    background-color: #3b0f0f;
+    color: #ffbaba;
+    border: 1px solid #a33;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.25s ease;
+}
+
+.btn-remover-foto:hover {
+    background-color: #a33;
+    color: white;
+}
+
+/* --- FORMULÁRIO --- */
+.formulario-edicao {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+    max-width: 500px;
+}
+.campo-formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-formulario label {
+    color: #dcdcdc;
+    font-size: 0.96rem;
+    font-weight: bold;
+    margin-bottom: 18px;  
+}
+/* Campo com prefixo R$ */
+.campo-moeda {
+    display: flex;
+    align-items: center;
+    background-color: #202020;
+    border: 1px solid #3d3d3d;
+    border-radius: 10px;
+    padding-left: 12px;
+    height: 50px;                   /* mesma altura dos outros inputs */
+}
+
+.prefixo {
+    color: #cfcfcf;
+    font-size: 1.05rem;
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+/* Input que vai ao lado do R$ */
+.input-moeda {
+    border: none;
+    background: transparent;
+    padding: 0;
+    height: 100%;
+    font-size: 1.05rem;
+}
+
+.input-moeda:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Inputs */
+.input-text {
+    background-color: #202020;
+    border: 1px solid #3d3d3d;
+    border-radius: 10px;
+    padding: 14px 18px;   
+    color: white;
+    font-size: 1.05rem;    
+    width: 100%;           
+    height: 50px;         
+    transition: 0.25s ease;
+}
+
+
+.input-text:focus {
+    outline: none;
+    border-color: #8a2dff;
+    background-color: #272727;
+    box-shadow: 0 0 10px rgba(138, 45, 255, 0.4);
+}
+
+.input-text::placeholder {
+    color: #777;
+}
+
+/* --- AÇÕES DO FORMULÁRIO --- */
+.acoes-formulario {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 20px;
+    border-top: 1px solid #333;
+    padding-top: 25px;
+}
+
+.btn-cancelar, .btn-salvar {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+/* Cancelar */
+.btn-cancelar {
+    background-color: #222;
+    color: #ccc;
+    border: 1px solid #444;
+}
+
+.btn-cancelar:hover {
+    background-color: #333;
+    border-color: #666;
+}
+
+/* Salvar */
+.btn-salvar {
+    background: linear-gradient(135deg, #8a2dff 0%, #5318d8 100%);
+    color: white;
+    box-shadow: 0 0 10px rgba(138, 45, 255, 0.4);
+}
+
+.btn-salvar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(138, 45, 255, 0.8);
+}
+
+/* Animação suave */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVO --- */
+@media (max-width: 768px) {
+    .conteudo-box {
+        padding: 25px;
+    }
+
+    .botoes-foto {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .btn-alterar-foto,
+    .btn-remover-foto {
+        width: 100%;
+    }
+
+    .acoes-formulario {
+        flex-direction: column;
+    }
+
+    .btn-cancelar,
+    .btn-salvar {
+        width: 100%;
+    }
+}

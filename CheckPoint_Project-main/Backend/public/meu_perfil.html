@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="icon" href="img/icon.png" type="image/png" sizes="32x32">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/editar_perfil.css">
+</head>
+<body>
+
+ <header class="barra-superior">
+        <div class="container-header">
+            <div class="logo">CHECKPOINT</div>
+            
+            <div class="area-usuario" onclick="alternarMenu(event)">
+                
+                <div class="icone-perfil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="40px" height="40px">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+
+                <div class="menu-suspenso" id="menuUsuario">
+                    <a href="menu_inicial.html">Home</a>
+                    <a href="meu_perfil.html">Perfil</a>
+                    <a href="meus_roles.html">Rolês</a>
+                    <a href="central.html">Gastos</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<main class="conteudo-principal">
+
+    <div class="perfil-box">
+
+        <div class="cabecalho-box">
+            <h2>Meu Perfil</h2>
+        </div>
+
+        <div class="conteudo-box">
+
+            <!-- FOTO -->
+            <div class="foto-area">
+                <div class="foto-perfil" id="fotoPerfil"></div>
+
+                <div class="icone-perfil-default" id="iconePadrao">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#666" width="80px" height="80px">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- DADOS -->
+            <div class="dados-usuario">
+
+    <div class="item-dado">
+        <span class="label">Apelido:</span>
+        <span id="campoNick" class="valor"></span>
+    </div>
+
+    <div class="item-dado">
+        <span class="label">Email:</span>
+        <span id="campoEmail" class="valor"></span>
+    </div>
+
+       <div class="item-dado">
+        <span class="label">Nome:</span>
+        <span id="campoNome" class="valor"></span>
+    </div>
+
+    <div class="item-dado">
+        <span class="label">Idade:</span>
+        <span id="campoIdade" class="valor"></span>
+    </div>
+
+
+
+
+    <!-- BOTÃO DE EDITAR PERFIL -->
+    <a href="editar_perfil.html" class="btn-editar">Editar Perfil</a>
+    </div>
+    <div class="grupo-botoes">
+    <!-- BOTÃO DE VOLTAR -->
+    <a href="menu_inicial.html" class="btn-editar">Voltar</a>
+
+    <!-- BOTÃO DE LOGOUT -->
+    <a href="/users/logout" class="btn-editar">Sair</a>
+    </div>
+            
+
+
+        </div>
+    </div>
+
+</main>
+
+<script>
+// Dados vindos da tela de login
+window.addEventListener('load', () => {
+    const paginaAtual = window.location.pathname;
+    
+    if(paginaAtual.includes('meu_perfil') || paginaAtual.includes('editar_perfil')) {
+        verificarSessao();
+    }
+});
+function verificarSessao() {
+    fetch('/users/sessao')
+        .then(response => response.json())
+        .then(data => {
+            if (data.logado) {
+                console.log("Perfil do:", data.usuario.Nick);
+                
+                // Procura o lugar onde vai o nome e atualiza
+                const elementoNick = document.getElementById('campoNick');
+                if (elementoNick) {
+                    elementoNick.innerText = data.usuario.Nick;
+                }
+                // Procura o lugar onde vai o email e atualiza
+                const elementoEmail = document.getElementById('campoEmail');
+                if (elementoEmail) {
+                    elementoEmail.innerText = data.usuario.email;
+                }
+                const elementoNome = document.getElementById('campoNome');
+                if (elementoNome) {
+                    elementoNome.innerText = data.usuario.Nome;
+                }
+                // Procura o lugar onde vai o email e atualiza
+                const elementoIdade = document.getElementById('campoIdade');
+                if (elementoIdade) {
+                    elementoIdade.innerText = data.usuario.Idade;
+                }
+                //foto
+                if (data.usuario.foto) {
+                    document.getElementById("fotoPerfil").style.backgroundImage =
+                        `url('${data.usuario.foto}')`;
+                    document.getElementById("iconePadrao").style.display = "none";
+                }
+
+            } else {
+                // Se não estiver logado, manda voltar pro login
+                alert("Sessão expirada ou inválida. Faça login novamente.");
+                window.location.href = 'index.html';
+            }
+        })
+        .catch(err => console.error("Erro ao verificar sessão", err));
+}
+
+function alternarMenu(event) {
+   
+    if (event) event.stopPropagation();
+    var menu = document.getElementById("menuUsuario");
+    menu.classList.toggle("mostrar");
+}
+
+</script>
+
+</body>
+</html>

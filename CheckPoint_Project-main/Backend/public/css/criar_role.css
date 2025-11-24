@@ -1,0 +1,278 @@
+/* =========================================
+   1. ESTRUTURA PRINCIPAL
+   ========================================= */
+.main-criar-role {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); 
+    padding: 20px;
+    background-size: cover; /* Caso tenha imagem de fundo no global */
+}
+
+.container-formulario {
+    background-color: #0d0620; /* Roxo bem escuro */
+    width: 100%;
+    max-width: 900px; /* Reduzi levemente para ficar mais compacto */
+    padding: 50px; 
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Borda sutil */
+}
+
+.titulo-criar {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 40px;
+    margin-top: -20px;
+    color: white;
+    font-family: 'Times New Roman', serif;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* =========================================
+   2. GRID DO FORMULÁRIO
+   ========================================= */
+.form-grid {
+    display: flex;
+    justify-content: space-between; 
+    gap: 40px; /* Espaço entre coluna esquerda e direita */
+}
+
+.coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1; /* Faz as duas colunas terem o mesmo tamanho */
+}
+
+label {
+    display: block;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    margin-bottom: 8px;
+    font-family: 'Times New Roman', serif;
+    letter-spacing: 0.5px;
+}
+
+/* =========================================
+   3. INPUTS PADRONIZADOS
+   ========================================= */
+.input-padrao {
+    width: 100%;   /* Ocupa a largura da coluna pai */
+    height: 50px;   
+    padding: 0 15px;
+    font-size: 1.1rem;
+    border: 1px solid transparent;
+    background-color: #f0f0f0;
+    color: #333; 
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Efeito ao clicar no input */
+.input-padrao:focus {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(74, 9, 255, 0.3);
+    border-color: #4a09ff;
+}
+
+.input-padrao::placeholder {
+    color: #aaa;
+}
+
+/* Ajuste específico para data */
+.input-data {
+    cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.3s;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* =========================================
+   4. IMAGEM DECORATIVA
+   ========================================= */
+.area-desenho {
+    display: flex;
+    justify-content: flex-end; /* Alinha à direita da coluna */
+    margin-top: 20px;
+}
+
+.img-fantasmas {
+    width: 100%; 
+    max-width: 140px;
+    opacity: 0.9;
+    transition: transform 0.3s;
+}
+
+.img-fantasmas:hover {
+    transform: scale(1.05) rotate(5deg);
+}
+
+/* =========================================
+   5. BOTÃO FINALIZAR (PRINCIPAL)
+   ========================================= */
+.area-botao {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.btn-finalizar {
+    background-color: #330693;
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    font-size: 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Times New Roman', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(51, 6, 147, 0.4);
+}
+
+.btn-finalizar:hover {
+    background-color: #4a0bc7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 11, 199, 0.6);
+}
+
+/* =========================================
+   6. MODAL (HORÁRIO)
+   ========================================= */
+.modal-fundo {
+    display: none; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo mais escuro */
+    backdrop-filter: blur(5px); /* Desfoque no fundo */
+    z-index: 2000; 
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-caixa {
+    background-color: #0B077E; 
+    padding: 40px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.modal-caixa h3 {
+    color: white;
+    font-size: 1.6rem;
+    font-family: 'Times New Roman', serif;
+    margin: 0;
+}
+
+.input-horario-gigante {
+    font-size: 2.5rem; 
+    text-align: center;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.2);
+    color: white;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+.input-horario-gigante:focus {
+    border-color: white;
+    background: rgba(0,0,0,0.4);
+}
+
+/* Botões do Modal */
+.botoes-modal {
+    display: flex;
+    gap: 15px; 
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn-continuar, 
+.btn-voltar-modal {
+    flex: 1;
+    padding: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-family: 'Times New Roman', serif;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.btn-continuar {
+    background-color: #4a0bc7;
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+.btn-continuar:hover { background-color: #5b1ae0; }
+
+.btn-voltar-modal {
+    background-color: transparent;
+    border: 1px solid rgba(255,255,255,0.5); 
+    color: white;
+}
+.btn-voltar-modal:hover { 
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-color: white;
+}
+
+.mostrar-modal {
+    display: flex !important;
+}
+
+/* Animação do Modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* =========================================
+   7. RESPONSIVIDADE (MOBILE)
+   ========================================= */
+@media (max-width: 768px) {
+    .container-formulario {
+        padding: 30px 20px;
+    }
+
+    .titulo-criar {
+        font-size: 2.2rem;
+        margin-top: 0;
+    }
+
+    .form-grid {
+        flex-direction: column; /* Empilha as colunas */
+        gap: 20px;
+    }
+
+    .area-desenho {
+        justify-content: center; /* Centraliza o fantasma no mobile */
+        margin-top: 10px;
+    }
+    
+    .btn-finalizar {
+        width: 100%; /* Botão largura total no mobile */
+    }
+}
