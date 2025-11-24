@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkpoint</title>
+    <link rel="icon" href="/img/icon.png" type="image/png" sizes="32x32">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/menu_inicial.css">
+</head>
+<body>
+
+    <header class="barra-superior">
+        <div class="container-header">
+            <div class="logo">CHECKPOINT</div>
+            
+            <div class="area-usuario" onclick="alternarMenu(event)">
+                
+                <div class="icone-perfil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="40px" height="40px">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+
+                <div class="texto-usuario">
+                    <span class="ola-pequeno">Olá</span>
+                    <span class="nome-grande" id="nome-usuario">Usuario</span>
+                </div>
+                
+                <div class="menu-suspenso" id="menuUsuario">
+                    <a href="menu_inicial.html">Home</a>
+                    <a href="meu_perfil.html">Perfil</a>
+                    <a href="meus_roles.html">Rolês</a>
+                    <a href="central.html">Gastos</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="secao-boas-vindas">
+        <div class="conteudo-banner">
+            <h1>SEJA BEM VINDO PARTIU MARCAR UM ROLÊ <br> COM A GALERA??</h1>
+            <a href="criar_role.html">
+                <button class="botao-criar-role">CRIAR ROLÊ</button>
+            </a>
+        </div>
+    </section>
+
+    <main class="conteudo-principal">
+        <div class="container-cards">
+            <div class="card-informativo">
+                <h2>Seu saldo disponível:</h2>
+                <p class="valor-destaque" id="textoSaldo">R$ 0.00</p> 
+                
+                <button class="botao-card" onclick="abrirModalSaldo(event)">Atualizar saldo</button>
+            </div>
+            <div class="card-informativo">
+                <h2>Rolês marcados:</h2>
+                <p class="valor-destaque" id="qtd-roles">0</p>
+                <a href="meus_roles.html" style="text-decoration: none; width: 100%; display: flex; justify-content: center;">
+                    <button class="botao-card">Inspecionar</button>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <div id="modalSaldo" class="modal-fundo">
+        <div class="modal-caixa">
+            <h3>Digite um novo saldo limite:</h3>
+            <form action="/users/saldo" method="POST">
+            <input type="text" id="input-novo-saldo" name="Valor"class="input-saldo-modal" placeholder="R$ 0,00">
+            <div class="botoes-modal">
+                <button class="btn-voltar-modal" onclick="fecharModalSaldo()">Cancelar</button>
+                
+                <button class="btn-continuar" type="submit">Continuar</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    
+
+    <footer class="rodape">
+        <div class="container-rodape-interno">
+            
+            <div class="lado-personagem">
+                <img src="/img/logo.png" alt="Personagem" class="img-personagem">
+            </div>
+
+            <div class="semaforo-css">
+                <div id="luz-vermelha" class="luz vermelha"></div>
+                <div id="luz-amarela" class="luz amarela"></div>
+                <div id="luz-verde" class="luz verde aceso"></div>
+            </div>
+
+            <div class="lado-mensagem">
+                <p id="texto-status" class="msg-verde">Tudo tranquilo! Gastos baixos.</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    </body>
+</html>

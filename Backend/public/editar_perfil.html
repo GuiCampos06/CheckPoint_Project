@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkpoint</title>
+    <link rel="icon" href="img/icon.png" type="image/png" sizes="32x32">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/perfil.css">
+</head>
+<body>
+
+    <header class="barra-superior">
+        <div class="container-header">
+            <div class="logo">CHECKPOINT</div>
+            
+            <div class="area-usuario" onclick="alternarMenu(event)">
+                
+                <div class="icone-perfil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="40px" height="40px">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+
+                <div class="menu-suspenso" id="menuUsuario">
+                    <a href="menu_inicial.html">Home</a>
+                    <a href="meu_perfil.html">Perfil</a>
+                    <a href="meus_roles.html">Rolês</a>
+                    <a href="central.html">Gastos</a>
+                </div>
+            </div>
+        </div>
+    </header>
+        <!-- Conteúdo Principal -->
+    <main class="conteudo-principal">
+        <div class="container">
+            <!-- Box Editar Perfil -->
+            <div class="box-editar-perfil">
+                <div class="cabecalho-box">
+                    <h2>Editar Perfil</h2>
+                </div>
+                
+                <div class="conteudo-box">
+                    <!-- Foto de Perfil -->
+                    <div class="area-foto-perfil">
+    <div class="foto-perfil-wrapper">
+        <div class="foto-perfil" id="preview-foto"></div>
+
+        <div class="icone-perfil-default" id="iconePadrao">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#666" width="80px" height="80px">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+        </div>
+    </div>
+
+    <input type="file" id="input-foto" accept="image/*" style="display:none;">
+
+    <div class="botoes-foto">
+        <button class="btn-alterar-foto" onclick="document.getElementById('input-foto').click(); return false;">
+            Alterar Foto
+        </button>
+
+        <button class="btn-remover-foto" id="btnRemoverFoto">
+            Remover Foto
+        </button>
+    </div>
+</div>
+
+                    <!-- Formulário de Edição -->
+                    <form action="/users/editar_perfil" method="POST" class="formulario-edicao" id="formCadastro">
+
+                        <div class="campo-formulario">
+                            <label for="nome">Nick</label>
+                            <input type="text" id="nick" name="Nick"  class="input-text">
+                        </div>
+                        <div class="campo-formulario">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="Nome"  class="input-text">
+                        </div>
+                        <div class="campo-formulario">
+                            <label for="Idade">Idade</label>
+                            <input type="number" id="Idade" name="Idade" class="input-text">
+                        </div>
+                        <div class="campo-formulario">
+                            <label for="Renda">Saldo</label>
+                            <div class="campo-moeda">
+                                <span class="prefixo">R$</span>
+                                <input type="text" id="Renda" name="Valor" class="input-text input-moeda">
+                            </div>
+                        </div>
+                        <div class="campo-formulario">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" class="input-text">
+                        </div>
+
+                        <div class="campo-formulario">
+                            <label for="senha">Alterar Senha</label>
+                            <input type="password" id="senha" name="senha" placeholder="Digite nova senha" class="input-text">
+                        </div>
+
+                        <div class="campo-formulario">
+                            <label for="confirmar-senha">Confirmar Senha</label>
+                            <input type="password" id="confirmar-senha" name="confirmar-senha" placeholder="Confirme a nova senha" class="input-text">
+                        </div>
+
+                        <div class="acoes-formulario">
+
+                            <a href="meu_perfil.html"><button type="button" class="btn-cancelar">Cancelar</button></a>
+
+                            <a><button type="submit" class="btn-salvar">Salvar Alterações</button></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+   
+<script>
+window.addEventListener('load', () => {
+    if (window.location.pathname.includes('editar_perfil')) {
+        verificarSessao();
+    }
+});
+function verificarSessao() {
+    fetch('/users/sessao')
+        .then(response => response.json())
+        .then(data => {
+            if (data.logado) {
+                console.log("Perfil do:", data.usuario.Nick);
+                
+                // Procura o lugar onde vai o nome e atualiza
+                const elementoNick = document.getElementById('nick');
+                if (elementoNick) {
+                    elementoNick.value = data.usuario.Nick;
+                }
+                // Procura o lugar onde vai o email e atualiza
+                const elementoEmail = document.getElementById('email');
+                if (elementoEmail) {
+                    elementoEmail.value = data.usuario.email;
+                }
+
+                const elementoNome = document.getElementById('nome');
+                if (elementoNome) {
+                    elementoNome.value = data.usuario.Nome;
+                }
+            
+                const elementoIdade = document.getElementById('Idade');
+                if (elementoIdade) {
+                    elementoIdade.value = data.usuario.Idade;
+                }
+
+                const elementoRenda = document.getElementById('Renda');
+                if (elementoRenda) {
+                    elementoRenda.value = data.usuario.Valor;
+                }
+
+            } else {
+                // Se não estiver logado, manda voltar pro login
+                alert("Sessão expirada ou inválida. Faça login novamente.");
+                window.location.href = 'index.html';
+            }
+        })
+        .catch(err => console.error("Erro ao verificar sessão", err));
+}
+const inputFoto = document.getElementById("input-foto");
+const previewFoto = document.getElementById("preview-foto");
+const iconePadrao = document.getElementById("iconePadrao");
+const btnRemover = document.getElementById("btnRemoverFoto");
+
+// Quando escolher imagem
+inputFoto.addEventListener("change", function(event) {
+    const arquivo = event.target.files[0];
+    if (!arquivo) return;
+
+    const leitor = new FileReader();
+    leitor.onload = function(e) {
+        previewFoto.style.backgroundImage = `url('${e.target.result}')`;
+        iconePadrao.style.display = "none";
+    }
+    leitor.readAsDataURL(arquivo);
+
+    // 🔵 Enviar para servidor
+    enviarFotoParaServidor(arquivo);
+});
+
+// Remover foto
+btnRemover.addEventListener("click", () => {
+    previewFoto.style.backgroundImage = "none";
+    iconePadrao.style.display = "block";
+    inputFoto.value = "";
+});
+
+function enviarFotoParaServidor(arquivo) {
+    const formData = new FormData();
+    formData.append("foto", arquivo);
+
+    fetch("/upload_foto", {   
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Foto enviada:", data);
+    })
+    .catch(err => console.error("Erro:", err));
+}
+ document.getElementById("formCadastro").addEventListener("submit", function(e) {
+            
+            const senha = document.getElementById("senha").value;
+            const csenha = document.getElementById("confirmar-senha").value;
+
+            // Verifica senha igual
+            if (senha !== csenha) {
+                e.preventDefault();
+                alert("As senhas não coincidem!");
+                return;
+            }
+
+            // Senha mínima
+            if (senha.length < 6) {
+                e.preventDefault();
+                alert("A senha deve conter pelo menos 6 caracteres!");
+                return;
+            }
+        });
+        function alternarMenu(event) {
+   
+    if (event) event.stopPropagation();
+
+    var menu = document.getElementById("menuUsuario");
+
+    menu.classList.toggle("mostrar");
+}
+
+</script>
+</body>
+</html>

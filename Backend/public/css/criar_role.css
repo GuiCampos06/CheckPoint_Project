@@ -1,0 +1,212 @@
+.main-criar-role {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); 
+    padding: 20px;
+}
+
+.container-formulario {
+    background-color: #0d0620;
+    width: 100%;
+    max-width: 1000px;
+    padding: 60px; 
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.titulo-criar {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 50px;
+    margin-top: -40px;
+    line-height: 1;
+    color: white;
+    font-family: 'Times New Roman', serif;
+}
+
+.form-grid {
+    display: flex;
+    justify-content: space-between; 
+    gap: 50px;
+}
+
+.coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 5px;
+    font-family: 'Times New Roman', serif;
+}
+
+/* --- CONFIGURAÇÃO DOS INPUTS  --- */
+.input-padrao {
+    width: 254px;   
+    height: 54px;   
+    padding: 15px;
+    font-size: 1.3rem;
+    border: none;
+    background-color: white;
+    color: #aaa; 
+    border-radius: 2px;
+    outline: none;
+}
+
+.input-padrao:focus, .input-padrao:not(:placeholder-shown) {
+    color: black;
+}
+
+
+#input-local {
+    width: 461px;   
+    height: 54px;   
+}
+
+
+.input-data {
+    cursor: pointer;
+    color: black;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+
+.area-desenho {
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: 30px;
+    width: 254px; 
+}
+
+.img-fantasmas {
+    width: 100%; 
+    max-width: 150px;
+}
+
+/* Botão Finalizar */
+.area-botao {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.btn-finalizar {
+    background-color: #330693;
+    color: white;
+    border: none;
+    width: 200px;
+    height: 50px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Times New Roman', serif;
+    transition: 0.3s;
+}
+
+.btn-finalizar:hover {
+    background-color: #4a0bc7;
+}
+
+.modal-fundo {
+    display: none; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    z-index: 2000; 
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-caixa {
+    background-color: #0B077E; 
+    padding: 30px;
+    width: 400px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-caixa h3 {
+    color: white;
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', serif;
+    margin: 0;
+}
+
+.input-horario-gigante {
+    font-size: 2.2rem; 
+    text-align: center;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+}
+
+.mostrar-modal {
+    display: flex !important;
+}
+
+.botoes-modal {
+    display: flex;
+    gap: 15px; 
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.btn-continuar {
+    background-color: #330693;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    flex: 1; 
+    font-family: 'Times New Roman', serif;
+    border-radius: 4px;
+}
+
+.btn-continuar:hover {
+    background-color: #4a0bc7;
+}
+
+.btn-voltar-modal {
+    background-color: transparent;
+    border: 1px solid white; 
+    color: white;
+    padding: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    flex: 1;
+    font-family: 'Times New Roman', serif;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.btn-voltar-modal:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+}
+
+

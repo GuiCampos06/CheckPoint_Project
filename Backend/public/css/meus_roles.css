@@ -1,0 +1,112 @@
+/*  LAYOUT DA PÁGINA  */
+.main-meus-roles {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+}
+
+.titulo-pagina {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: normal;
+    text-align: center;
+    font-family: 'Times New Roman', serif;
+}
+
+/* Container Roxo Escuro  */
+.container-lista-roles {
+    background-color: #110b29; 
+    width: 100%;
+    max-width: 1100px;
+    padding: 50px;
+    border-radius: 8px;
+    min-height: 400px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* ESTILO DO CARD */
+.card-role {
+    margin-bottom: 25px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+
+    background-color: transparent; 
+    height: auto; 
+}
+
+.card-role:hover {
+    transform: translateY(-2px); 
+}
+
+/* Cabeçalho do Card  */
+.card-header {
+    background-color: white;
+    color: black;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: 'Times New Roman', serif;
+    justify-content: space-between; 
+    position: relative; 
+    z-index: 2;
+}
+
+/* Seta  */
+.seta-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    font-family: Arial, sans-serif; 
+}
+
+/* Corpo do Card  */
+.card-body {
+    background-color: #0000FF; 
+    color: white;
+    padding: 20px;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    display: none; 
+    border-top: 1px solid #ddd;
+    display: none;
+}
+
+
+
+
+.card-role.aberto .card-body {
+    display: block;
+    animation: abrirSuave 0.3s ease;
+}
+
+
+.card-role.aberto .seta-icon {
+    transform: rotate(180deg);
+}
+
+@keyframes abrirSuave {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+#lista-eventos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+
+@media (max-width: 768px) {
+    #lista-eventos {
+        grid-template-columns: 1fr;
+    }
+}

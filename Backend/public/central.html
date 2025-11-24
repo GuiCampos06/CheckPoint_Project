@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkpoint</title>
+    <link rel="icon" href="img/icon.png" type="image/png" sizes="32x32">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/central.css">
+</head>
+<body>
+
+<header class="barra-superior">
+    <div class="container-header">
+
+        <!-- LOGO (NÃO SOME MAIS NO CELULAR) -->
+        <div class="logo">CHECKPOINT</div>
+
+        <div class="hamburger" onclick="abrirMenuMobile()">
+            ☰
+        </div>
+
+        <!-- ÁREA DO USUÁRIO / MENU DESKTOP -->
+       <div class="area-usuario" onclick="alternarMenu(event)">
+                
+                <div class="icone-perfil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="40px" height="40px">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+
+                <div class="texto-usuario">
+                    <span class="ola-pequeno">Olá</span>
+                    <span class="nome-grande" id="nome-usuario">Usuario</span>
+                </div>
+                
+                <div class="menu-suspenso" id="menuUsuario">
+                    <a href="menu_inicial.html">Home</a>
+                    <a href="meu_perfil.html">Perfil</a>
+                    <a href="meus_roles.html">Rolês</a>
+                    <a href="central.html">Gastos</a>
+                </div>
+            </div>
+
+    </div>
+
+ <nav class="menu-mobile" id="menuMobile">
+    <a href="#">Home</a>
+    <a href="#">Central de Gastos</a>
+    <a href="#">Rolês</a>
+</nav>
+</header>
+
+
+<main class="painel">
+
+    <h1 class="titulo-painel">Central de gestão de gastos</h1>
+
+    <div class="painel-conteudo">
+
+     
+        <div class="cards-topo">
+
+            <div class="card-info">
+                <h2>Seus gastos do mês</h2>
+                <p class="valor">R$ 500,00</p>
+            </div>
+
+            <div class="card-info">
+                <h2>Dinheiro economizado</h2>
+                <p class="valor">R$ 0,00</p>
+            </div>
+
+        </div>
+
+        <!-- GRÁFICOS -->
+        <div class="cards-graficos">
+
+            <div class="grafico-box">
+                <h3>Métricas</h3>
+                <canvas id="graficoLinha"></canvas>
+            </div>
+
+            <div class="grafico-box">
+                <h3>Estatísticas</h3>
+                <canvas id="graficoPizza"></canvas>
+            </div>
+
+        </div>
+
+        <button class="btn-add">Adicionar gastos</button>
+        <button class="btn-add">Adicionar gastos</button>
+
+    </div>
+
+</main>
+<!-- MODAL -->
+<div class="modal-fundo" id="modalGasto">
+    <div class="modal">
+        <h2>Novos Gastos</h2>
+
+          <label>Valor:</label>
+        <input type="text" id="valor" placeholder="R$ 0,00" oninput="formatarMoeda(this)">
+
+        <button class="btn-fechar" onclick="salvarGasto()">Salvar</button>
+        <button class="btn-fechar" style="background:#b30000;" onclick="fecharModal()">Fechar</button>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/central.js"></script>
+<script src="js/script.js"></script>
+<script src="js/responsivo.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Código | Checkpoint</title>
+    <link rel="icon" href="img/icon.png" type="image/png" sizes="32x32">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+
+    <div class="banner">
+        <div class="checkpoint-overlay">CHECKPOINT</div>
+        <img src="img/login.png" alt="imagem-login">
+        <p style="color: #fff;">
+            Verifique seu código de autenticação enviado para seu email.
+            <br>Se não encontrar, revise sua caixa de spam.
+        </p>
+    </div>
+
+    <div class="box-login">
+
+        <h1>Insira o código<br>para continuar</h1>
+
+        <form action="/users/verificar" method="POST" class="box-account">
+
+            <h2>Digite o código recebido</h2>
+
+            <input 
+                type="text" 
+                name="codigo" 
+                id="codigo" 
+                placeholder="Código de verificação" 
+                maxlength="6"
+                required
+            >
+
+            <p style="text-align:center; font-size: 14px;">
+                O código expira em 5 minutos.
+            </p>
+
+            <button type="submit">Validar código</button>
+        </form>
+
+    </div>
+
+</div>
+
+<a href="index.html">
+    <div id="bubble">
+        <img src="img/user.png" alt="icone-usuário" title="voltar">
+    </div>
+</a>
+
+</body>
+</html>

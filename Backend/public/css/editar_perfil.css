@@ -1,0 +1,137 @@
+.conteudo-principal {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    background: radial-gradient(circle at top, #12083a 10%, #0b0b0b 90%);
+}
+
+
+/* BOX */
+.perfil-box {
+    background-color: #171717;
+    border-radius: 18px;
+    border: 1px solid rgba(136, 18, 255, 0.2);
+    box-shadow: 0 0 25px rgba(17, 8, 51, 0.5);
+    max-width: 700px;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Cabeçalho */
+.cabecalho-box {
+    background: linear-gradient(135deg, #1e0a52, #32117f);
+    padding: 28px 35px;
+}
+
+.cabecalho-box h2 {
+    color: #fff;
+    font-size: 1.9rem;
+}
+
+/* Conteúdo */
+.conteudo-box {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Foto */
+.foto-area {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin-bottom: 25px;
+}
+
+.foto-perfil {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid #5318d8;
+    background-color: #222;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 10px #5318d8aa;
+}
+
+.icone-perfil-default {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Dados */
+.dados-usuario {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.item-dado {
+    background: #202020;
+    padding: 18px 20px;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.label {
+    color: #9a9a9a;
+    font-size: 0.9rem;
+}
+
+.valor {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.btn-editar {
+    margin-top: 20px;
+    display: flex;             
+    justify-content: center;    
+    align-items: center;        
+    
+    width: 130px;               
+    height: 36px;              
+    
+    background: #5318d8;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: 0.2s;
+    box-shadow: 0 0 6px #5318d8aa;
+}
+
+.btn-editar:hover {
+    background: #6a1bff;
+    transform: scale(1.05);
+}
+.grupo-botoes {
+    display: flex;
+    gap: 190px;        /* espaço entre os botões */
+    justify-content: center; /* se quiser centralizar */
+    margin-top: 20px;
+}
+
+
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .conteudo-box {
+        padding: 25px;
+    }
+
+    .item-dado {
+        padding: 16px;
+    }
+}
