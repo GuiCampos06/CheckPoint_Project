@@ -10,30 +10,57 @@ const queryPromise = (sql, values) => {
 };
 
 const GastosModel = {
-    adicionarGasto: async (idUsuario, valor, categoria) => {
+    adicionarGasto: async (idUsuario, valor, categoria, descricao) => {
         try {
             if (valor <= 0) return { sucesso: false, mensagem: "Valor inválido." };
 
-            const sql = "INSERT INTO gastos (fk_idUsuario, valorGasto, categoria) VALUES (?, ?, ?)";
-            await queryPromise(sql, [idUsuario, valor, categoria]);
+            const sql = "INSERT INTO gastos (fk_idUsuario, valorGasto, categoria, descricao) VALUES (?, ?, ?, ?)";
+            await queryPromise(sql, [idUsuario, valor, categoria, descricao]);
 
-            // --- A MÁGICA DO TRIGGER ---
-            // O banco já rodou o trigger. Agora buscamos o alerta mais recente.
-            // CORREÇÃO: Ordernar por pk_idAlerta DESC (garante que pega o último inserido)
-            // em vez de criado_em, para evitar bugs de mesmo segundo.
-            const alertaSql = "SELECT * FROM alertas WHERE fk_idUsuario = ? ORDER BY pk_idAlerta DESC LIMIT 1";
-            
-            const alertas = await queryPromise(alertaSql, [idUsuario]);
-
-            return { 
-                sucesso: true, 
-                mensagem: "Gasto registrado!", 
-                // Se não tiver alerta ainda, assume Verde
-                statusFinanceiro: alertas.length > 0 ? alertas[0].nivel : 'Verde'
-            };
+            // Lógica de alerta movida para o backend para evitar erro de Mutating Table em Triggers
+            // Aqui você pode implementar a verificação do limite se quiser retornar o status
+            return { sucesso: true, mensagem: "Gasto registrado com sucesso!" };
 
         } catch (error) {
+            console.error(error);
             return { sucesso: false, erro: error.message };
+        }
+    },
+
+    listarPorUsuario: async (idUsuario) => {
+        try {
+            // Lista os últimos 50 gastos (para não pesar a página)
+            const sql = `
+                SELECT pk_idDespesa, valorGasto, categoria, descricao,
+                    DATE_FORMAT(dataGasto, '%d/%m/%Y') as dataFormatada 
+                FROM gastos 
+                WHERE fk_idUsuario = ? 
+                ORDER BY dataGasto DESC, pk_idDespesa DESC
+                LIMIT 50
+            `;
+            
+            const resultados = await queryPromise(sql, [idUsuario]);
+            return { sucesso: true, gastos: resultados };
+        } catch (error) {
+            console.error(error);
+            return { sucesso: false, erro: error.message };
+        }
+    },
+
+    obterTotalMes: async (idUsuario) => {
+        try {
+            // CORREÇÃO CRÍTICA: Filtra pelo Mês e Ano atuais
+            const sql = `
+                SELECT SUM(valorGasto) as total 
+                FROM gastos 
+                WHERE fk_idUsuario = ? 
+                AND MONTH(dataGasto) = MONTH(CURRENT_DATE()) 
+                AND YEAR(dataGasto) = YEAR(CURRENT_DATE())
+            `;
+            const resultado = await queryPromise(sql, [idUsuario]);
+            return { sucesso: true, total: resultado[0].total || 0 };
+        } catch (error) {
+            return { sucesso: false, total: 0 };
         }
     }
 };

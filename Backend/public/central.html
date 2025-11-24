@@ -11,17 +11,21 @@
 <body>
 
 <header class="barra-superior">
-    <div class="container-header">
+        <div class="container-header">
+            <div class="lado-esquerdo">
+                <a href="menu_inicial.html" class="btn-voltar" onclick="voltarSuave(event, this.href)" title="Voltar ao Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 0 24 24" width="30px" fill="white">
+                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z"/>
+                    </svg>
+                </a>
 
-        <!-- LOGO (NÃO SOME MAIS NO CELULAR) -->
-        <div class="logo">CHECKPOINT</div>
+                <a href="menu_inicial.html" class="link-logo" onclick="voltarSuave(event, this.href)">
+                    <div class="logo">CHECKPOINT</div>
+                </a>
+            </div>
 
-        <div class="hamburger" onclick="abrirMenuMobile()">
-            ☰
-        </div>
-
-        <!-- ÁREA DO USUÁRIO / MENU DESKTOP -->
-       <div class="area-usuario" onclick="alternarMenu(event)">
+            <div class="area-usuario" onclick="alternarMenu(event)">
                 
                 <div class="icone-perfil">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="40px" height="40px">
@@ -41,15 +45,8 @@
                     <a href="central.html">Gastos</a>
                 </div>
             </div>
-
-    </div>
-
- <nav class="menu-mobile" id="menuMobile">
-    <a href="#">Home</a>
-    <a href="#">Central de Gastos</a>
-    <a href="#">Rolês</a>
-</nav>
-</header>
+        </div>
+    </header>
 
 
 <main class="painel">
@@ -89,21 +86,57 @@
         </div>
 
         <button class="btn-add">Adicionar gastos</button>
-        <button class="btn-add">Adicionar gastos</button>
+
+        <div class="container-historico">
+            <h3 class="titulo-historico">Últimos gastos</h3>
+            
+            <div class="cabecalho-tabela">
+                <span>Descrição</span>
+                <span>Data</span>
+                <span>Valor</span>
+            </div>
+
+            <div id="lista-gastos" class="lista-gastos">
+                <p class="msg-vazio">Nenhum gasto registrado ainda.</p>
+            </div>
+        </div>
 
     </div>
+        
+    </div>
+    
 
 </main>
+
+
 <!-- MODAL -->
 <div class="modal-fundo" id="modalGasto">
     <div class="modal">
-        <h2>Novos Gastos</h2>
+        <h2>Novo Gasto</h2>
+        
+        <label>Descrição:</label>
+        <input type="text" id="descGasto" placeholder="Ex: Mercado, Uber..." maxlength="255">
 
-          <label>Valor:</label>
-        <input type="text" id="valor" placeholder="R$ 0,00" oninput="formatarMoeda(this)">
+        <label>Categoria:</label>
+        <select id="categoriaGasto">
+            <option value="outros">Outros</option>
+            <option value="alimentação">Alimentação</option>
+            <option value="transporte">Transporte</option>
+            <option value="lazer">Lazer</option>
+            <option value="educação">Educação</option>
+            <option value="saúde">Saúde</option>
+            <option value="roupas">Roupas</option>
+            <option value="moradia">Moradia</option>
+            <option value="eventos">Eventos</option>
+        </select>
 
-        <button class="btn-fechar" onclick="salvarGasto()">Salvar</button>
-        <button class="btn-fechar" style="background:#b30000;" onclick="fecharModal()">Fechar</button>
+        <label>Valor:</label>
+        <input type="text" id="valorGasto" placeholder="R$ 0,00" oninput="formatarMoeda(this)">
+
+        <div class="modal-botoes">
+            <button class="btn-salvar" onclick="salvarGasto()">Salvar</button>
+            <button class="btn-fechar" onclick="fecharModal()">Fechar</button>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

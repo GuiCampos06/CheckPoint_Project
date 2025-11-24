@@ -1,102 +1,134 @@
 const db = require("../../conexao/conexao");
 
-module.exports = {
-    criar(req, res) {
-    const { nomeEvento, valorEvento, dataEvento, localEvento, QuantParticipantes } = req.body;
-    const idUser = req.session.usuarioLogado.pk_id;
-    let valorLimpo = String(valorEvento)
-    .replace("R$", "")
-    .replace(/\./g, "")
-    .replace(",", ".")
-    .trim();
-    const sqlEvento = `
-        INSERT INTO events (fk_idUsuario, nomeEvento, dataEvento, localEvento, QuantParticipantes)
-        VALUES (?, ?, ?, ?, ?)
-    `;
-    db.query(sqlEvento, [idUser, nomeEvento, dataEvento, localEvento, QuantParticipantes], (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.json({ ok: false, msg: "Erro ao criar evento." });
-        }
-        const idEvento = result.insertId;
-        const sqlGasto = `
-            INSERT INTO gastos (fk_idUsuario, valorGasto, categoria, fk_idEvento)
-            VALUES (?, ?, 'eventos', ?)
-        `;
-        db.query(sqlGasto, [idUser, valorLimpo, idEvento], (err) => {
-            if (err) {
-                console.error(err);
-                return res.json({ ok: false, msg: "Erro ao criar gasto." });
-            }
-            return res.json({ ok: true });
+// Função auxiliar para Promessas (igual fizemos no Gastos)
+const executeQuery = (sql, params) => {
+    return new Promise((resolve, reject) => {
+        db.query(sql, params, (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
         });
     });
-},
-    quantidade(req, res) {    
-        const idUser = req.session.usuarioLogado.pk_id;
-        db.query("SELECT COUNT(*) AS total FROM events WHERE fk_idUsuario = ?", [idUser],(err, result) => {
-            if (err) {
-                console.error(err);
-                return res.json({ ok: false });
-            }
-            res.json({ ok: true, total: result[0].total });
-        });
+};
+
+module.exports = {
+    // 1. Criar Evento + Gasto Inicial
+    criar: async (req, res) => {
+        try {
+            if (!req.session.usuarioLogado) return res.status(403).json({ ok: false });
+
+            const idUser = req.session.usuarioLogado.pk_id;
+            const { nomeEvento, valorEvento, dataEvento, localEvento, QuantParticipantes } = req.body;
+
+            // Limpa o valor (R$ 1.000,00 -> 1000.00)
+            let valorLimpo = String(valorEvento)
+                .replace("R$", "")
+                .replace(/\./g, "")
+                .replace(",", ".")
+                .trim();
+
+            const sqlEvento = `
+                INSERT INTO events (fk_idUsuario, nomeEvento, dataEvento, localEvento, QuantParticipantes)
+                VALUES (?, ?, ?, ?, ?)
+            `;
+            const resultEvento = await executeQuery(sqlEvento, [idUser, nomeEvento, dataEvento, localEvento, QuantParticipantes]);
+            const idEvento = resultEvento.insertId;
+
+            // Cria automaticamente o gasto associado ao evento
+            const sqlGasto = `
+                INSERT INTO gastos (fk_idUsuario, valorGasto, categoria, fk_idEvento, descricao, dataGasto)
+                VALUES (?, ?, 'eventos', ?, ?, NOW())
+            `;
+            // Usa o nome do evento como descrição do gasto
+            await executeQuery(sqlGasto, [idUser, valorLimpo, idEvento, `Rolê: ${nomeEvento}`]);
+
+            res.json({ ok: true, msg: "Rolê criado com sucesso!" });
+
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ ok: false, msg: "Erro ao criar evento." });
+        }
     },
 
-    listarEventos(req, res) {
-        const idUser = req.session.usuarioLogado.pk_id;
-        const sql = "SELECT pk_idEvento, nomeEvento FROM events WHERE fk_idUsuario = ?";
+    // 2. Quantidade de Rolês (para o card do Menu Inicial)
+    quantidade: async (req, res) => {
+        try {
+            if (!req.session.usuarioLogado) return res.status(403).json({ ok: false });
+            
+            const idUser = req.session.usuarioLogado.pk_id;
+            
+            // O count(*) pega o total de linhas na tabela events para esse usuário
+            const result = await executeQuery("SELECT COUNT(*) AS total FROM events WHERE fk_idUsuario = ?", [idUser]);
+            
+            // Retorna o total
+            res.json({ ok: true, total: result[0].total });
 
-        db.query(sql,[idUser], (err, results) => {
-            if (err) return res.status(500).json({ ok: false, erro: err });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ ok: false, total: 0 });
+        }
+    },
+
+    // 3. Listar Eventos (Apenas nomes e IDs para a lista principal)
+    listarEventos: async (req, res) => {
+        try {
+            if (!req.session.usuarioLogado) return res.status(403).json({ ok: false });
+            const idUser = req.session.usuarioLogado.pk_id;
+
+            const sql = "SELECT pk_idEvento, nomeEvento FROM events WHERE fk_idUsuario = ? ORDER BY dataEvento DESC";
+            const results = await executeQuery(sql, [idUser]);
 
             res.json({ ok: true, eventos: results });
-        });
+
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ ok: false, msg: "Erro ao listar" });
+        }
     },
 
-    buscarEvento(req, res) {
-    const idUser = req.session.usuarioLogado.pk_id;
-    const id = req.params.id;
+    // 4. Buscar Detalhes de um Evento (Quando clica no card)
+    buscarEvento: async (req, res) => {
+        try {
+            if (!req.session.usuarioLogado) return res.status(403).json({ ok: false });
+            const idUser = req.session.usuarioLogado.pk_id;
+            const idEvento = req.params.id;
 
-    const sqlEvento = `
-        SELECT * FROM events WHERE pk_idEvento = ? AND fk_idUsuario = ?
-    `;
-    const sqlGasto = `
-        SELECT valorGasto FROM gastos WHERE fk_idEvento = ? AND fk_idUsuario = ? AND categoria = 'eventos'
-    `;
-    db.query(sqlEvento, [id, idUser], (err, eventoResult) => {
+            const sqlEvento = "SELECT * FROM events WHERE pk_idEvento = ? AND fk_idUsuario = ?";
+            const eventoResult = await executeQuery(sqlEvento, [idEvento, idUser]);
 
-        if (err) return res.status(500).json({ ok: false, erro: err });
+            if (eventoResult.length === 0) {
+                return res.status(404).json({ ok: false, msg: "Evento não encontrado" });
+            }
 
-        if (eventoResult.length === 0) {
-            return res.status(404).json({ ok: false, msg: "Evento não encontrado" });
-        }
+            // Busca o gasto associado
+            const sqlGasto = "SELECT valorGasto FROM gastos WHERE fk_idEvento = ? AND fk_idUsuario = ?";
+            const gastoResult = await executeQuery(sqlGasto, [idEvento, idUser]);
 
-        db.query(sqlGasto, [id, idUser], (err, gastoResult) => {
-
-            if (err) return res.status(500).json({ ok: false, erro: err });
-
-            return res.json({
+            res.json({
                 ok: true,
                 evento: eventoResult[0],
                 gasto: gastoResult[0] || { valorGasto: 0 }
             });
-        });
-    });
-},
 
-    apagarEvento(req, res) {
-        const id = req.params.id;
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ ok: false, msg: "Erro ao buscar detalhes" });
+        }
+    },
 
-        const sql = "DELETE FROM events WHERE pk_idEvento = ?";
-        db.query(sql, [id], (err, results) => {
-            if (err) return res.status(500).json({ ok: false, erro: err });
+    // 5. Excluir Evento
+    excluir: async (req, res) => {
+        try {
+            if (!req.session.usuarioLogado) return res.status(403).json({ ok: false });
+            const idUser = req.session.usuarioLogado.pk_id;
+            const { id } = req.body;
 
-            if (results.length === 0) {
-                return res.status(404).json({ ok: false, msg: "Evento não encontrado" });
-            }
+            // Ao apagar o evento, o banco (ON DELETE CASCADE) já deve apagar o gasto associado se configurado corretamente
+            await executeQuery("DELETE FROM events WHERE pk_idEvento = ? AND fk_idUsuario = ?", [id, idUser]);
 
-            res.json({ ok: true, evento: results[0] });
-        });
+            res.json({ ok: true, msg: "Rolê cancelado!" });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ ok: false, msg: "Erro ao excluir" });
+        }
     }
 };

@@ -164,7 +164,40 @@ const UserController = {
             res.status(500).json({ sucesso: false, mensagem: "Erro interno do servidor." });
         }
     },
-    
+    saldo: async (req, res) => {
+        // Se não tiver logado, bloqueia
+        if (!req.session.usuarioLogado) {
+            return res.status(403).json({ ok: false, msg: "Usuário não logado" });
+        }
+
+        const { Valor } = req.body; // Recebe o novo valor do input
+        const idUser = req.session.usuarioLogado.pk_id;
+
+        // Limpeza básica do valor caso venha como string "R$ 1.000,00"
+        let valorLimpo = Valor;
+        if (typeof Valor === 'string') {
+             valorLimpo = parseFloat(Valor.replace("R$", "").replace(/\./g, "").replace(",", ".").trim());
+        }
+
+        try {
+            // Atualiza no Banco (Model)
+            const resultado = await UserModel.saldo(valorLimpo, idUser);
+            
+            if (resultado.sucesso) {
+                // Atualiza a Sessão para não precisar relogar
+                req.session.usuarioLogado.Valor = valorLimpo;
+                
+                req.session.save(() => {
+                    return res.json({ ok: true, novoValor: valorLimpo });
+                });
+            } else {
+                return res.status(400).json({ ok: false, msg: "Erro ao atualizar" });
+            }
+        } catch (erro) {
+            console.error(erro);
+            res.status(500).json({ ok: false, msg: "Erro interno" });
+        }
+    },
     };
 
 

@@ -12,8 +12,19 @@
 
     <header class="barra-superior">
         <div class="container-header">
-            <div class="logo">CHECKPOINT</div>
-            
+            <div class="lado-esquerdo">
+                <a href="menu_inicial.html" class="btn-voltar" onclick="voltarSuave(event, this.href)" title="Voltar ao Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 0 24 24" width="30px" fill="white">
+                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z"/>
+                    </svg>
+                </a>
+
+                <a href="menu_inicial.html" class="link-logo" onclick="voltarSuave(event, this.href)">
+                    <div class="logo">CHECKPOINT</div>
+                </a>
+            </div>
+
             <div class="area-usuario" onclick="alternarMenu(event)">
                 
                 <div class="icone-perfil">
@@ -48,33 +59,35 @@
 
     <main class="conteudo-principal">
         <div class="container-cards">
+            
             <div class="card-informativo">
                 <h2>Seu saldo disponível:</h2>
-                <p class="valor-destaque" id="textoSaldo">R$ 0.00</p> 
+                    <p class="valor-destaque" id="textoSaldo">R$ 0,00</p> 
                 
                 <button class="botao-card" onclick="abrirModalSaldo(event)">Atualizar saldo</button>
             </div>
+
             <div class="card-informativo">
                 <h2>Rolês marcados:</h2>
                 <p class="valor-destaque" id="qtd-roles">0</p>
-                <a href="meus_roles.html" style="text-decoration: none; width: 100%; display: flex; justify-content: center;">
-                    <button class="botao-card">Inspecionar</button>
-                </a>
+                
+                <button class="botao-card" onclick="window.location.href='meus_roles.html'">Inspecionar</button>
             </div>
         </div>
     </main>
 
     <div id="modalSaldo" class="modal-fundo">
         <div class="modal-caixa">
-            <h3>Digite um novo saldo limite:</h3>
-            <form action="/users/saldo" method="POST">
-            <input type="text" id="input-novo-saldo" name="Valor"class="input-saldo-modal" placeholder="R$ 0,00">
+            <h3>Definir Orçamento Mensal:</h3>
+            
+            <!-- Input com formatação automática -->
+            <input type="text" id="input-novo-saldo" class="input-saldo-modal" placeholder="R$ 0,00" oninput="formatarMoeda(this)">
+            
             <div class="botoes-modal">
                 <button class="btn-voltar-modal" onclick="fecharModalSaldo()">Cancelar</button>
-                
-                <button class="btn-continuar" type="submit">Continuar</button>
+                <!-- Botão chama a função via AJAX agora -->
+                <button class="btn-continuar" onclick="salvarNovoSaldo()">Continuar</button>
             </div>
-        </form>
         </div>
     </div>
     

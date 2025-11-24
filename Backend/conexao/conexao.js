@@ -5,8 +5,8 @@ const database = "Checkpoint";
 function createConnection() {
   const conexao = mysql.createConnection({
     host: "127.0.0.1",
-    user: "Guilherme",
-    password: "25112006gBBc",
+    user: "root",
+    password: "root",
     port: 3306
   });
 
