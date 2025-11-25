@@ -155,29 +155,17 @@ http://localhost:4000
 
 /project
 │── /public
-
 │   ├── css/
-
 │   ├── js/
-
 │   ├── img/
-
 │   ├── *.html
-
 │
 │── /Backend
-
-│   ├── /Control
-lers
-
+│   ├── /Controllers
 │   ├── /Models
-
 │   ├── /conexao
-
 │   ├── app.js
-
 │
-
 └── README.md
 
 
