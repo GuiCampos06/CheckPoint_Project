@@ -117,6 +117,8 @@ git clone https://github.com/seu-usuario/seu-repositório.git
 ### *2. Entrar na pasta backend*
 
 
+cd backend
+
 
 ### *3. Instalar dependências*
 
